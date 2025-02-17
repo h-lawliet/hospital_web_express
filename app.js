@@ -12,14 +12,15 @@ import { connectDB } from "./config/database.js"
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT
+const app = express()
+const PORT = process.env.PORT || 3000
+const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // 리액트 도메인
+    origin: CORS_API_URL, // 리액트 도메인
     credentials: true, // 쿠키 허용
   })
 );
