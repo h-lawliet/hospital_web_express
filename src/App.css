@@ -1,0 +1,13 @@
+#root {
+  margin: 0;
+  width: 100%;
+  font-family: "Noto Sans KR", 'NanumSquare', serif;
+}
+.container {
+  padding: 0 10vw;
+}
+
+/* 
+폰트 사이즈 반응형
+clamp(16px, calc(0.01vw + 16px), 18px) --> 큰 화면
+*/
