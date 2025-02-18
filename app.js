@@ -48,10 +48,9 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-// 세팅 변경?
 const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 
-// // 로그인 요청 처리
+
 app.post("/login", (req, res) => {
   const { id, password } = req.body;
   if (id === USER.id && password === USER.password) {
