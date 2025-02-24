@@ -48,7 +48,7 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-const USER = { id: "admin", password: "hongjiman3" }
+const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 // process.env.ADMIN_ID process.env.ADMIN_PASSWORD
 
 app.post("/login", (req, res) => {
@@ -80,5 +80,5 @@ app.post("/logout", (req, res) => {
 
 app.listen(PORT, () => {
   connectDB()
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
