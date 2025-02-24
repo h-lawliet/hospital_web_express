@@ -61,10 +61,17 @@ export const createNotice = async (req, res) => {
   }
 }
 
-export const updateNotice = (req, res) => {
+export const updateNotice = async (req, res) => {
 
 }
 
-export const deleteNotice = (req, res)=>{
-  
+export const deleteNotice = async (req, res)=>{
+  try {
+    const id = req.params.id
+    await Notice.findByIdAndDelete(id)
+    res.status(200).json({ state: 0, message: "공지사항이 삭제되었습니다" })
+  } catch (error) {
+    console.log(error)
+    res.json({ state: 2, message: "서버 오류", error })
+  }
 }

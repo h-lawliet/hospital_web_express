@@ -8,7 +8,7 @@ const noticeSchema = new mongoose.Schema(
 		},
 		content: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		imageUrls: {
 			type: Array,
@@ -23,8 +23,8 @@ const noticeSchema = new mongoose.Schema(
 			required: true
 		}
 	}
-);
+)
 
-const Notice = mongoose.model("Notice", noticeSchema);
+const Notice = mongoose.model("Notice", noticeSchema)
 
-export default Notice;
+export default Notice
