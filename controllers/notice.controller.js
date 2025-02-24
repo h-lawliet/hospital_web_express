@@ -15,14 +15,26 @@ export const getNoticeDetail = async (req, res) => {
   try {
     const id = req.params.id
     let noticeData
-    (req.session.user) ?
-    noticeData = await Notice.findById(id) :
-    noticeData = await Notice.findByIdAndUpdate(
-      id, 
-      { $inc: { views: 1 } }, // views 값을 1 증가
-      { new: true }
-    )
-    res.json(noticeData)
+
+    if (req.session.user) {
+      noticeData = await Notice.findById(id)
+      if (!noticeData) {
+        res.json({state: 1, message: "유효하지 않은 ID입니다."})
+      } else {
+        res.json({state: 0, content: noticeData})
+      }
+    } else {
+      noticeData = await Notice.findByIdAndUpdate(
+        id, 
+        { $inc: { views: 1 } }, // views 값을 1 증가
+        { new: true }
+      )
+      if (!noticeData) {
+        res.json({state: 1, message: "유효하지 않은 ID입니다."})
+      } else {
+        res.json({state: 0, content: noticeData})
+      }
+    }
   } catch (error) {
     res.status(500).json({ message: "서버 오류", error });
   }

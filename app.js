@@ -12,14 +12,15 @@ import { connectDB } from "./config/database.js"
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT
+const app = express()
+const PORT = process.env.PORT || 3000
+const CORS_API_URL = process.env.REACT_URL || "http://localhost:5174"
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // 리액트 도메인
+    origin: CORS_API_URL, // 리액트 도메인
     credentials: true, // 쿠키 허용
   })
 );
@@ -47,38 +48,37 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-// 세팅 변경?
 const USER = { id: "admin", password: "hongjiman3" }
+// process.env.ADMIN_ID process.env.ADMIN_PASSWORD
 
-// // 로그인 요청 처리
 app.post("/login", (req, res) => {
   const { id, password } = req.body;
   if (id === USER.id && password === USER.password) {
     req.session.user = id;
     res.json({ success: true, message: "로그인 성공" });
   } else {
-    res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." });
+    res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." })
   }
-});
+})
 
 // 로그인 상태 확인 (req.session.user에 있음)
 app.get("/check", (req, res) => {
   if (req.session.user) {
-    res.json({ loggedIn: true, user: req.session.user });
+    res.json({ loggedIn: true, user: req.session.user })
   } else {
-    res.json({ loggedIn: false });
+    res.json({ loggedIn: false })
   }
-});
+})
 
 // 로그아웃
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
-    if (err) return res.status(500).json({ success: false, message: "로그아웃 실패" });
-    res.json({ success: true, message: "로그아웃 성공" });
-  });
-});
+    if (err) return res.status(500).json({ success: false, message: "로그아웃 실패" })
+    res.json({ success: true, message: "로그아웃 성공" })
+  })
+})
 
 app.listen(PORT, () => {
-  connectDB();
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+  connectDB()
+  console.log(`Server running on http://localhost:${PORT}`)
+})

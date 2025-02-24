@@ -12,19 +12,19 @@ const examinationSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true
+      required: false
     },
     purpose: {
       type: String,
-      required: true,
+      required: false,
     },
     method: {
       type: String,
-      required: true
+      required: false
     },
     time: {
       type: String,
-      required: true,
+      required: false,
     },
     caution: {
       type: String,
@@ -32,7 +32,7 @@ const examinationSchema = new mongoose.Schema(
     },
     result: {
       type: String,
-      required: true
+      required: false
     }
   }
 );
