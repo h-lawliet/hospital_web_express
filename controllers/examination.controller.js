@@ -25,7 +25,7 @@ export const createExamination = async (req, res) => {
     const { title, room, purpose, method, time, caution, result } = req.body;
     const image = req.file?.location; // 이미지가 없을 수도 있음
 
-    if (title && image && purpose && method && time && result) {
+    if (title && room) {
       const newExamination = new Examination({ title, room, image, purpose, method, time, caution, result });
       const savedExamination = await newExamination.save();
       res.status(200).json({ state: 0, message: "검사안내가 등록되었습니다" });
@@ -53,17 +53,20 @@ export const updateExamination = async (req, res) => {
     const newExamination = { title, room, purpose, method, time, caution, result }
     if (image) newExamination.image = image
 
-    const updatedExamination = await Examination.findByIdAndUpdate(id, updateData, { new: true })
+    const updatedExamination = await Examination.findByIdAndUpdate(id, newExamination, { new: true })
     res.status(200).json({ state: 0, message: "검사안내가 수정되었습니다" })
+    console.log("검사안내 수정 : ", updatedExamination)
   } catch (error) {
     console.error(error)
     res.json({ state: 2, message: "서버 오류", error })
   }
 }
 
-export const deleteExamination = (req, res)=>{
+export const deleteExamination = async (req, res)=>{
   try {
-
+    const id = req.params.id
+    await Examination.findByIdAndDelete(id)
+    res.status(200).json({ state: 0, message: "검사안내가 삭제되었습니다" })
   } catch (error) {
     console.log(error)
     res.json({ state: 2, message: "서버 오류", error })
