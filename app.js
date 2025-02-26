@@ -32,7 +32,7 @@ app.use(
     resave: false,
     store: MongoStore.create({mongoUrl: process.env.DB_URI}),
     saveUninitialized: false,
-    cookie: { httpOnly: true, secure: false, maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
+    cookie: { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
   })
 )
 
@@ -52,10 +52,9 @@ const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 // process.env.ADMIN_ID process.env.ADMIN_PASSWORD
 
 app.post("/login", (req, res) => {
-  const { id, password } = req.body;
-  console.log(req.body)
+  const { id, password } = req.body
   if (id === USER.id && password === USER.password) {
-    req.session.user = id;
+    req.session.user = id
     res.json({ success: true, message: "로그인 성공" })
   } else {
     res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." })

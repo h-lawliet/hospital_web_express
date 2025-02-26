@@ -1,7 +1,6 @@
 import Research from "../models/research.model.js"
 
 
-
 export const getResearch = async (req, res) => {
   try {
     const researches = await Research.find() //전체 컬랙션 가져오기
@@ -40,7 +39,7 @@ export const createResearch = async (req, res)=>{
       res.json({ state: 2, message: "서버 오류", error })
     }
   } else {
-    res.json({ state: 3, message: "로그인 후 이용해주세요" })
+    res.json({ state: 1, message: "로그인 후 이용해주세요" })
   }
 }
 
