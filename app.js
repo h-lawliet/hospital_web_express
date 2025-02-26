@@ -48,11 +48,12 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-const USER = { id: "admin", password: "123" }
+const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 // process.env.ADMIN_ID process.env.ADMIN_PASSWORD
 
 app.post("/login", (req, res) => {
   const { id, password } = req.body;
+  console.log(req.body)
   if (id === USER.id && password === USER.password) {
     req.session.user = id;
     res.json({ success: true, message: "로그인 성공" });
