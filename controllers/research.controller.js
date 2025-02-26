@@ -22,6 +22,7 @@ export const getResearchDetail = async (req, res) => {
 }
 
 export const createResearch = async (req, res)=>{
+  console.log("createresearch", req.session.user)
   if (req.session.user) {
     try {
       const { year, journal, doi, title, author, url, impact } = req.body

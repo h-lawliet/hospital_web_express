@@ -56,7 +56,7 @@ app.post("/login", (req, res) => {
   console.log(req.body)
   if (id === USER.id && password === USER.password) {
     req.session.user = id;
-    res.json({ success: true, message: "로그인 성공" });
+    res.json({ success: true, message: "로그인 성공" })
   } else {
     res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." })
   }
