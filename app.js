@@ -32,7 +32,11 @@ app.use(
     resave: false,
     store: MongoStore.create({mongoUrl: process.env.DB_URI}),
     saveUninitialized: false,
-    cookie: { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
+    cookie: { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none", // 프론트/백 도메인 다르면 브라우저가 쿠키를 차단해버리는 경우가 있다.
+      maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
   })
 )
 
