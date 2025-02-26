@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 3000
-const CORS_API_URL = process.env.REACT_URL || process.env.REACT_URL_WWW
+const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
 
 app.use(express.json());
 app.use(cookieParser());
@@ -48,7 +48,7 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
+const USER = { id: "admin", password: "123" }
 // process.env.ADMIN_ID process.env.ADMIN_PASSWORD
 
 app.post("/login", (req, res) => {
@@ -68,6 +68,7 @@ app.get("/check", (req, res) => {
   } else {
     res.json({ loggedIn: false })
   }
+  console.log(req.session.user)
 })
 
 // 로그아웃

@@ -69,12 +69,16 @@ export const updateResearch = async (req, res) => {
 }
 
 export const deleteResearch = async (req, res)=>{
-  try {
-    const id = req.params.id
-    await Research.findByIdAndDelete(id)
-    res.status(200).json({ state: 0, message: "논문이 삭제되었습니다" })
-  } catch (error) {
-    console.log(error)
-    res.json({ state: 2, message: "서버 오류", error })
+  const id = req.params.id
+  if (req.session.user) {
+    try {
+      await Research.findByIdAndDelete(id)
+      res.status(200).json({ state: 0, message: "논문이 삭제되었습니다" })
+    } catch (error) {
+      console.log(error)
+      res.json({ state: 2, message: "서버 오류", error })
+    }
+  } else {
+    res.json({ state: 1 })
   }
 }
