@@ -25,6 +25,8 @@ app.use(
   })
 );
 
+app.set("trust proxy", 1); // 클라우드타입 프록시 신뢰
+
 // 세션 설정
 app.use(
   session({
@@ -59,7 +61,14 @@ app.post("/login", (req, res) => {
   const { id, password } = req.body
   if (id === USER.id && password === USER.password) {
     req.session.user = id
-    res.json({ success: true, message: "로그인 성공" })
+    req.session.save((err) => {
+      if (err) {
+        console.error("세션 저장 오류:", err);
+        return res.status(500).json({ success: false, message: "세션 저장 실패" });
+      }
+      console.log("세션 저장됨:", req.session);
+      res.json({ success: true, message: "로그인 성공" });
+    });
   } else {
     res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." })
   }
