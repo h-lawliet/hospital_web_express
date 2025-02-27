@@ -10,6 +10,7 @@ import examinationRouter from "./routes/examination.route.js"
 import reserveRouter from "./routes/reserve.route.js"
 import { connectDB } from "./config/database.js"
 import axios from "axios"
+import { CurrentTime } from "./config/timenow.js"
 
 dotenv.config();
 
@@ -61,19 +62,13 @@ const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 app.post("/login", async (req, res) => {
   const { id, password } = req.body
   let userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  let ipv4
-  if (userIp.includes(':')) {
-    ipv4 = userIp.split(':').pop()
-  } else {
-    ipv4 = userIp
-  }
+  let now = CurrentTime()
   try {
     const response = await axios.get(`http://ip-api.com/json/${userIp}`)
-    console.log(response.data)
+    console.log(now, response.data)
   } catch (err) {
     console.log(err)
   }
-  console.log("새로운 접속 시도 : ", ipv4)
   if (id === USER.id && password === USER.password) {
     req.session.user = id
     req.session.save((err) => {
