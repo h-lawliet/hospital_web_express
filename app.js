@@ -9,6 +9,7 @@ import noticeRouter from "./routes/notice.route.js"
 import examinationRouter from "./routes/examination.route.js"
 import reserveRouter from "./routes/reserve.route.js"
 import { connectDB } from "./config/database.js"
+import axios from "axios"
 
 dotenv.config();
 
