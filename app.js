@@ -59,6 +59,8 @@ const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 
 app.post("/login", (req, res) => {
   const { id, password } = req.body
+  let userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(userIp)
   if (id === USER.id && password === USER.password) {
     req.session.user = id
     req.session.save((err) => {
