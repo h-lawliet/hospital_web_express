@@ -81,7 +81,7 @@ app.post("/login", async (req, res) => {
     });
   } else {
     res.status(401).json({ success: false, message: "아이디 또는 비밀번호가 틀렸습니다." })
-    console.log("로그인 시도 : ", now)
+    console.log("(아이디 틀림)입력값 : ", req.body)
   }
 })
 
