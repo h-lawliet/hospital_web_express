@@ -36,7 +36,7 @@ export const getNoticeDetail = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ message: "서버 오류", error });
+    res.status(500).json({ message: "서버 오류", error })
   }
 }
 
@@ -56,8 +56,8 @@ export const createNotice = async (req, res) => {
       res.json({state: 1, message: "제목과 내용을 모두 입력해주세요"})
     }
   } catch (error) {
-    console.error(error);
-    res.json({ state: 2, message: "서버 오류", error });
+    console.error(error)
+    res.json({ state: 2, message: "서버 오류", error })
   }
 }
 
