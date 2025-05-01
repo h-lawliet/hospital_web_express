@@ -16,7 +16,8 @@ dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 3000
-const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
+// const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
+const CORS_API_URL = "http://localhost:5173"
 
 app.use(express.json());
 app.use(cookieParser());
@@ -39,7 +40,7 @@ app.use(
     cookie: { 
       httpOnly: true, 
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // 프론트/백 도메인 다르면 브라우저가 쿠키를 차단해버리는 경우가 있다.
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 프론트/백 도메인 다르면 브라우저가 쿠키를 차단해버리는 경우가 있다.
       maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
   })
 )
@@ -56,8 +57,8 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-// const USER = { id: "admin", password: "test" }
-const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
+const USER = { id: "admin", password: "test" }
+/* const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD } */
 
 app.post("/login", async (req, res) => {
   const { id, password } = req.body
@@ -92,7 +93,6 @@ app.get("/check", (req, res) => {
   } else {
     res.json({ loggedIn: false })
   }
-  console.log(req.session.user)
 })
 
 // 로그아웃

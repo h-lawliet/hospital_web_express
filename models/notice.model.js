@@ -21,6 +21,10 @@ const noticeSchema = new mongoose.Schema(
 		time: {
 			type: String,
 			required: true
+		},
+		endDate: {
+			type: String,
+			required: true
 		}
 	}
 )
