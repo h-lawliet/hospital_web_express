@@ -19,9 +19,9 @@ export const getNoticeDetail = async (req, res) => {
     if (req.session.user === "admin") {
       noticeData = await Notice.findById(id)
       if (!noticeData) {
-        res.json({status: 404, message: "공지사항을 찾을 수 없습니다."})
+        res.json({ status: 404, message: "공지사항을 찾을 수 없습니다."})
       } else {
-        res.json({status: 200, content: noticeData})
+        res.json({ status: 200, content: noticeData})
       }
     } else {
       noticeData = await Notice.findByIdAndUpdate(
@@ -46,7 +46,7 @@ export const getActiveNotice = async (req, res) => {
   
   const activeNotices = allNotices.filter(notice => {
     try {
-      const end = new Date(notice.endDate) // 문자열 → Date 변환
+      const end = new Date(`${notice.endDate}T23:59:59`) // 문자열 → Date 변환
       return end >= now
     } catch (e) {
       return false // 변환 실패 시 무시
@@ -126,17 +126,17 @@ export const deletePic = async (req, res)=>{
   
   try {
     const id = req.params.id
-    const { imgurl } = req.body
+    const { imgUrl } = req.body
     const notice = await Notice.findById(id)
 
     if (!notice) {
       return res.json({ status: 404, message: '공지사항을 찾을 수 없습니다.' })
     }
 
-    notice.imageUrls = notice.imageUrls.filter(url => url !== imgurl)
+    notice.imageUrls = notice.imageUrls.filter(url => url !== imgUrl)
     await notice.save()
 
-    return res.json({ status: 200, message: '이미지 삭제 완료' })
+    return res.json({ status: 200, message: '이미지 삭제 완료', modified: notice })
 
   } catch (error) {
     console.error('공지사항 이미지 삭제 에러:', error)
