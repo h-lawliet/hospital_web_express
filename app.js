@@ -16,8 +16,8 @@ dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 3000
-// const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
-const CORS_API_URL = "http://localhost:5173"
+const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
+// const CORS_API_URL = "http://localhost:5173"
 
 app.use(express.json());
 app.use(cookieParser());
@@ -57,8 +57,8 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-const USER = { id: "admin", password: "test" }
-/* const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD } */
+// const USER = { id: "admin", password: "test" }
+const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 
 app.post("/login", async (req, res) => {
   const { id, password } = req.body
