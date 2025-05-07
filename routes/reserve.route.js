@@ -4,7 +4,7 @@ import { checkAuth } from "../config/checkAuth.js"
 
 const router = express.Router()
 
-router.get("/", getReserve)
+router.get("/", checkAuth, getReserve)
 router.post("/create", createReserve)
 router.delete("/:id", checkAuth, deleteReserve)
 

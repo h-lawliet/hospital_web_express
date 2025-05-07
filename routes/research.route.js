@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/", getResearch)
 router.get("/:id", checkAuth, getResearchDetail)
-router.post("/create", createResearch)
+router.post("/create", checkAuth, createResearch)
 router.put("/:id", checkAuth, updateResearch)
 router.delete("/:id", checkAuth, deleteResearch)
 
