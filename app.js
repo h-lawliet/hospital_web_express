@@ -24,7 +24,7 @@ const CORS_API_URL = "http://localhost:5173"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const clientBuildPath = path.join(__dirname, "..", "client", "dist");
+const clientBuildPath = path.join(__dirname, "..", "howpital_web_react", "dist");
 
 
 app.use(express.json());
@@ -67,7 +67,6 @@ app.use("/notice", noticeRouter)
 app.use("/examination", examinationRouter)
 app.use("/reserve", reserveRouter)
 
-// const USER = { id: "admin", password: "test" }
 const USER = { id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD }
 
 app.post("/login", async (req, res) => {
@@ -118,7 +117,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(clientBuildPath, "index.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '127.0.0.1', () => {
   connectDB()
   console.log(`Server running on port ${PORT}`)
 })
