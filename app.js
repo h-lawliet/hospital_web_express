@@ -1,5 +1,7 @@
 import express from "express"
 import session from "express-session"
+import path from "path"
+import { fileURLToPath } from "url"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import dotenv from "dotenv"
@@ -16,8 +18,14 @@ dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 3000
-const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
-// const CORS_API_URL = "http://localhost:5173"
+// const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
+const CORS_API_URL = "http://localhost:5173"
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const clientBuildPath = path.join(__dirname, "..", "client", "dist");
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +36,7 @@ app.use(
   })
 );
 
-app.set("trust proxy", 1); // 클라우드타입 프록시 신뢰
+// app.set("trust proxy", 1); // 클라우드타입 프록시 신뢰
 
 // 세션 설정
 app.use(
@@ -44,6 +52,8 @@ app.use(
       maxAge: 1000 * 60 * 60 * 2 }, // 2시간 유지
   })
 )
+
+app.use(express.static(clientBuildPath));
 
 /*
 리스트 가져오기 : /api
@@ -102,6 +112,11 @@ app.post("/logout", (req, res) => {
     res.json({ success: true, message: "로그아웃 성공" })
   })
 })
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+});
 
 app.listen(PORT, () => {
   connectDB()

@@ -6,7 +6,7 @@ import { checkAuth } from "../config/checkAuth.js"
 const router = express.Router()
 
 router.get("/", getExamination)
-router.get("/:id", checkAuth, getExaminationDetail)
+router.get("/detail/:id", checkAuth, getExaminationDetail)
 router.post("/create", checkAuth, upload.single("image"), createExamination)
 router.put("/:id", checkAuth, upload.single("image"), updateExamination)
 router.delete("/:id", checkAuth, deleteExamination)
