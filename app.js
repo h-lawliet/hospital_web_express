@@ -24,7 +24,7 @@ const CORS_API_URL = "http://localhost:5173"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const clientBuildPath = path.join(__dirname, "..", "howpital_web_react", "dist");
+const clientBuildPath = path.join(__dirname, "..", "hospital_web_react", "dist");
 
 
 app.use(express.json());
