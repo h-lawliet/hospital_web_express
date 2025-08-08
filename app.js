@@ -13,6 +13,7 @@ import reserveRouter from "./routes/reserve.route.js"
 import { connectDB } from "./config/database.js"
 import axios from "axios"
 import { CurrentTime } from "./config/timenow.js"
+import fs from "fs/promises"
 
 dotenv.config();
 
@@ -112,12 +113,20 @@ app.post("/logout", (req, res) => {
   })
 })
 
+app.get("/env.js", (req, res) => {
+  res.setHeader("Content-Type", "application/javascript; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  res.send(`window.__ENV__ = ${JSON.stringify({
+    FULLPAGE_KEY: process.env.FULLPAGE_KEY || ""
+  })};`);
+});
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(clientBuildPath, "index.html"));
 });
 
 app.listen(PORT, '127.0.0.1', () => {
-  connectDB()
-  console.log(`Server running on port ${PORT}`)
-})
+  connectDB();
+  console.log(`Server running on port ${PORT}`);
+});
