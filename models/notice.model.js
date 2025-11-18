@@ -10,6 +10,10 @@ const noticeSchema = new mongoose.Schema(
 			type: String,
 			required: false,
 		},
+		url: {
+			type: String,
+			required: false,
+		},
 		imageUrls: {
 			type: Array,
 			required: false,

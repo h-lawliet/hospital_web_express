@@ -61,7 +61,7 @@ export const getActiveNotice = async (req, res) => {
 
 export const createNotice = async (req, res) => {
   try {
-    const { title, content, endDate } = req.body
+    const { title, content, endDate, url } = req.body
     const imageUrls = req.files?.map((file) => file.location)
     const views = 0
     const time = CurrentTime()
