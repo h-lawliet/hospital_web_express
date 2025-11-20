@@ -67,7 +67,7 @@ export const createNotice = async (req, res) => {
     const time = CurrentTime()
 
     if (title && endDate) {
-      const newNotice = new Notice({ title, content, endDate, imageUrls, views, time })
+      const newNotice = new Notice({ title, content, url, endDate, imageUrls, views, time })
       const savedNotice = await newNotice.save()
       res.json({status: 200, message: "공지사항이 등록되었습니다"})
       console.log("공지사항 등록 : ", savedNotice)
