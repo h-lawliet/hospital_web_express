@@ -82,7 +82,7 @@ export const createNotice = async (req, res) => {
 
 export const updateNotice = async (req, res) => {
   try {
-    const { title, content, endDate } = req.body
+    const { title, content, url, endDate } = req.body
     const files = req.files
 
     const id = req.params.id
@@ -95,6 +95,7 @@ export const updateNotice = async (req, res) => {
     if (title && content && endDate) {
       notice.title = title
       notice.content = content
+      notice.url = url
       notice.endDate = endDate
       files.map((e)=>{
         notice.imageUrls.push(e.location)
