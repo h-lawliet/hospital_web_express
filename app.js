@@ -17,7 +17,7 @@ import { CurrentTime } from "./config/timenow.js"
 dotenv.config();
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 const CORS_API_URL = "http://localhost:5173"
 
 const __filename = fileURLToPath(import.meta.url);
