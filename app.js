@@ -13,13 +13,11 @@ import reserveRouter from "./routes/reserve.route.js"
 import { connectDB } from "./config/database.js"
 import axios from "axios"
 import { CurrentTime } from "./config/timenow.js"
-import fs from "fs/promises"
 
 dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 3000
-// const CORS_API_URL = process.env.REACT_URL || "http://localhost:5173"
 const CORS_API_URL = "http://localhost:5173"
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,8 +34,6 @@ app.use(
     credentials: true, // 쿠키 허용
   })
 );
-
-// app.set("trust proxy", 1); // 클라우드타입 프록시 신뢰
 
 // 세션 설정
 app.use(

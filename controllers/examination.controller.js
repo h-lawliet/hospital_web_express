@@ -6,7 +6,7 @@ export const getExamination = async (req, res) => {
     const Examinations = await Examination.find() //전체 컬랙션 가져오기
     res.json(Examinations)
   } catch (error) {
-    res.status(500).json({ message: "서버 오류", error });
+    res.status(500).json({ message: "서버 오류", error })
   }
 }
 
@@ -14,7 +14,7 @@ export const getExaminationDetail = async (req, res) => {
   try {
     const id = req.params.id
     const ExaminationData = await Examination.findById(id)
-    res.json({status: 200, content: ExaminationData})
+    res.json({ status: 200, content: ExaminationData })
   } catch (error) {
     res.status(500).json({ message: "서버 오류", error })
   }
