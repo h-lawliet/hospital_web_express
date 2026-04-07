@@ -117,6 +117,14 @@ app.get("/env.js", (req, res) => {
   })};`);
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain')
+  res.sendFile('robots.txt', {
+    root: path.join(clientBuildPath, 'config')
+  })
+})
+
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(clientBuildPath, "index.html"));
